@@ -2,6 +2,7 @@ from pages.main_page import MainPage
 import pytest
 import allure
 
+
 class TestMainPage:
     @pytest.mark.parametrize("question_index, answer", [
         (0, 'Сутки — 400 рублей. Оплата курьеру — наличными или картой.'),
@@ -13,6 +14,8 @@ class TestMainPage:
         (6, 'Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.'),
         (7, 'Да, обязательно. Всем самокатов! И Москве, и Московской области.'),
     ])
+
+
     @allure.title('Проверка соответствия Ответа Вопросу в выпадающих списках раздела "Вопросы о важном"')
     def test_main_page(self, driver, question_index, answer):
         main_page = MainPage(driver)
@@ -20,5 +23,4 @@ class TestMainPage:
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         main_page.click_question(question_index)
         answer_text = main_page.get_answer_text(question_index)
-
         assert answer_text == answer
