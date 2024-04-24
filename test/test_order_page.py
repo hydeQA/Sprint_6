@@ -60,5 +60,5 @@ class TestOrderButton:
         order_page.access_order()
         order_page.click_button_status()
         order_page.click_yandex_logo()
-        order_page.switch_to_new_tab()
+        order_page.switch_to_new_tab(OrderPageLocators.TITLE_NEWS)
         assert driver.current_url == data.Urls.URL_DZEN

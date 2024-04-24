@@ -1,4 +1,3 @@
-from selenium.common import TimeoutException
 from pages.base_page import BasePage
 import data
 from selenium.webdriver.support.wait import WebDriverWait
@@ -103,14 +102,6 @@ class OrderPage(BasePage):
         button_yes.click()
 
 
-    def is_element_present(self, locator, timeout=10):
-        try:
-            WebDriverWait(self.driver, timeout).until(expected_conditions.presence_of_element_located(locator))
-            return True
-        except TimeoutException:
-            return False
-
-
     @allure.step('Кликнуть на кнопку "Посмотреть статус" на всплывающем окне "Заказ оформлен"')
     def click_button_status(self):
         status_button = self.wait_and_find_element(OrderPageLocators.BUTTON_STATUS)
@@ -127,8 +118,3 @@ class OrderPage(BasePage):
     def click_yandex_logo(self):
         yandex_button = self.wait_and_find_element(OrderPageLocators.LOGO_YANDEX)
         yandex_button.click()
-
-
-    def switch_to_new_tab(self):
-        self.driver.switch_to.window(self.driver.window_handles[-1])
-        WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located(OrderPageLocators.TITLE_NEWS))
